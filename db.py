@@ -11,3 +11,4 @@ def load_book() -> list:
 def save_book(books: list[BookOutput]):
     with open("book.json", "w") as f:
         json.dump([book.model_dump() for book in books], f, indent=4)
+        
