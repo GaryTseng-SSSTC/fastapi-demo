@@ -26,9 +26,6 @@ def get_book_byid_(id_: int) -> BookOutput:
     return result[0]
   raise HTTPException(status_code=404, detail=f"No book with id={id_}")
 
-if __name__ == "__main__":
-  uvicorn.run("book:app",reload=True)
-
 @app.post("/api/books")
 def add_book(book: BookInput) -> BookOutput:
     new_book = BookOutput(
@@ -67,4 +64,8 @@ def update_book(id_: int, new_book: BookInput) -> BookOutput:
         return book
     else:
         raise HTTPException(status_code=404, detail=f"No book with _id={id_}")
+
+if __name__ == "__main__":
+  uvicorn.run("book:app",reload=True)
+
 
