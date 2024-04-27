@@ -1,7 +1,6 @@
-from pydantic import BaseModel
+from sqlmodel import SQLModel, Field, Relationship
 
-
-class BookInput(BaseModel):
+class BookInput(SQLModel):
     title: str
     isbn: str
     category: str
@@ -19,7 +18,12 @@ class BookInput(BaseModel):
             }
         }
 
+class Book(BookInput, table=True):
+    id_: int | None = Field(primary_key=True, default=None)
+    #auth_id: int = Field(foreign_key="author.id_")
+    #author: "Author" = Relationship(back_populates="books")
 
+    
 class BookOutput(BookInput):
     id_: int
 

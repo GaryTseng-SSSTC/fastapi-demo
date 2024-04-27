@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi import HTTPException
 import uvicorn
+from sqlmodel import create_engine,SQLModel
 
 from db import load_book, save_book
 from schema import BookInput, BookOutput
@@ -8,6 +9,16 @@ from schema import BookInput, BookOutput
 app = FastAPI(title = "BOOK API")
 
 books = load_book()
+
+engine = create_engine(
+  "sqlite:///book.db",
+  connect_args={"check_same_thread": False},
+  echo=True,
+)
+
+@app.on_event("startup")
+def on_startup():
+  SQLModel.metadata.create_all(engine)
 
 
 @app.get("/api/books")
