@@ -5,7 +5,7 @@ import uvicorn
 from db import load_book, save_book
 from schema import BookInput, BookOutput
 
-app = FastAPI()
+app = FastAPI(title = "BOOK API")
 
 books = load_book()
 
